@@ -1,7 +1,9 @@
 .map-container {
   display: flex;
   flex: 1;
-  height: 100vh;
+  height: 99vh;
+  overflow: hidden;
+  padding: 5px;
 }
 mgl-map {
   height: 100%;
