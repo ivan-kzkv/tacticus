@@ -20,7 +20,6 @@ export class ThemeSwitcherComponent {
 
   get isBlackTheme$(): Observable<boolean> {
     return this.store.select(selectTheme).pipe(map(theme => theme === 'dark'));
-
   }
 
   handleToggleChangeState(isChecked: boolean) {

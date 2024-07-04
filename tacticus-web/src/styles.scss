@@ -28,6 +28,11 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
   line-height: 1;
+  background-color: var(--main-color-300);
+}
+
+.dark-theme {
+  background-color: var(--main-color-400);
 }
 ol, ul {
   list-style: none;
