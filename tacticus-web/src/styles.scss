@@ -1,3 +1,5 @@
+@import "_variables";
+
 /* You can add global styles to this file, and also import other style files */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -26,6 +28,11 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
   line-height: 1;
+  background-color: var(--main-color-300);
+}
+
+.dark-theme {
+  background-color: var(--main-color-400);
 }
 ol, ul {
   list-style: none;

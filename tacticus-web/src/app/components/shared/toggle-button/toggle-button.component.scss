@@ -1,0 +1,52 @@
+
+input {
+  --size: 20px;
+  --bgColor: var(--main-color-200);
+  --bgColorChecked: var(--main-color-500);
+  --circleColor: var(--main-color-400);
+  --circleColorChecked: var(--main-color-100);
+
+
+
+  height: calc(var(--size) + var(--size) / 5);
+  width: auto; /* деяким браузерам це потрібно */
+  aspect-ratio: 2.25;
+  border-radius: var(--size);
+  margin: calc(var(--size) / 2);
+  display: grid;
+  cursor: pointer;
+  background-color: var(--bgColor);
+  box-sizing: content-box;
+  overflow: hidden;
+  transition: .3s .1s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: absolute;
+}
+
+input:checked {
+  background-color: var(--bgColorChecked);
+}
+
+input:before {
+  content: "";
+  padding: calc(var(--size) / 10);
+  background:
+    radial-gradient(circle closest-side at calc(100% - var(--size) / 2) 50%, var(--circleColor) 96%, #0000) 0 / var(--_p, var(--size)) 100% no-repeat content-box,
+    radial-gradient(circle closest-side at calc(100% - var(--size) / 2) 50%, var(--circleColor) 96%, #0000) var(--_p, 0) / var(--size) 100% no-repeat content-box,
+    #fff0;
+  filter: blur(calc(var(--size) / 12)) contrast(11);
+  transition: .4s, background-position .4s .1s,
+  padding cubic-bezier(0, calc(var(--_i, -1) * 200), 1, calc(var(--_i, -1) * 200)) .25s .1s;
+}
+
+input:checked:before {
+  padding: calc(var(--size) / 10 + .05px) calc(var(--size) / 10);
+  --_p: 100%;
+  --_i: 1;
+  background:
+    radial-gradient(circle closest-side at calc(100% - var(--size) / 2) 50%, var(--circleColorChecked) 96%, #0000) 0 / var(--_p, var(--size)) 100% no-repeat content-box,
+    radial-gradient(circle closest-side at calc(100% - var(--size) / 2) 50%, var(--circleColorChecked) 96%, #0000) var(--_p, 0) / var(--size) 100% no-repeat content-box,
+    #fff0;
+}
