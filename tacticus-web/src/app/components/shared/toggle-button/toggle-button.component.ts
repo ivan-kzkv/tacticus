@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, output, Output} from '@angular/core';
+import {Component, Input, output} from '@angular/core';
 import {NgStyle} from '@angular/common';
 
 @Component({
@@ -10,7 +10,7 @@ import {NgStyle} from '@angular/common';
 })
 export class ToggleButtonComponent {
   @Input() buttonConfigurations: {size?: number, bgColor?: string, bgColorChecked?: string, circleColor?: string, circleColorChecked?: string} | undefined;
-  @Input() toggleState: boolean = false;
+  @Input() toggleState: boolean | null = null;
   toggleStateChanges= output<boolean>({alias: 'onToggleChange'});
 
 
