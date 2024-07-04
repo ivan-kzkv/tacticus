@@ -29,11 +29,12 @@ public class ScenarioService {
     return this.scenarioRepository.saveAll(scenarios);
   }
   
-  public Scenario updateScenario(Scenario newScenario) {
-    return this.scenarioRepository.findById(newScenario.getId())
+  public Scenario updateScenario(Long scenarioId, Scenario newScenario) {
+    return this.scenarioRepository.findById(scenarioId)
         .map(scenario -> {
           scenario.setName(newScenario.getName());
           scenario.setDate_modified(new Date());
+          scenario.setDescription(newScenario.getDescription());
           return this.scenarioRepository.save(scenario);
         }).orElseThrow();
   }

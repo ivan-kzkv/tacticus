@@ -21,6 +21,8 @@ public class Scenario {
   private Long id;
 
   private String name;
+  private String description;
+  
   @Column(updatable = false)
   private Date date_created;
   
