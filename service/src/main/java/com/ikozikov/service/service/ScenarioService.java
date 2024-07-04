@@ -1,5 +1,6 @@
 package com.ikozikov.service.service;
 
+import com.ikozikov.service.dto.ScenarioDto;
 import com.ikozikov.service.model.Scenario;
 import com.ikozikov.service.repository.ScenarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,12 @@ public class ScenarioService {
     return this.scenarioRepository.findById(scenarioId).orElseThrow();
   }
   
-  public Scenario createScenario(Scenario scenario) {
+  public Scenario createScenario(ScenarioDto scenarioDto) {
+    var scenario = new Scenario();
+    scenario.setDate_created(new Date());
+    scenario.setDate_modified(new Date());
+    scenario.setName(scenarioDto.getName());
+    scenario.setDescription(scenarioDto.getDescription());
     return this.scenarioRepository.save(scenario);
   }
   
@@ -29,17 +35,17 @@ public class ScenarioService {
     return this.scenarioRepository.saveAll(scenarios);
   }
   
-  public Scenario updateScenario(Long scenarioId, Scenario newScenario) {
+  public Scenario updateScenario(Long scenarioId, ScenarioDto scenarioDto) {
     return this.scenarioRepository.findById(scenarioId)
         .map(scenario -> {
-          scenario.setName(newScenario.getName());
+          scenario.setName(scenarioDto.getName());
           scenario.setDate_modified(new Date());
-          scenario.setDescription(newScenario.getDescription());
+          scenario.setDescription(scenarioDto.getDescription());
           return this.scenarioRepository.save(scenario);
         }).orElseThrow();
   }
   
-  public void deleteScenario(List<Scenario> scenarios) {
-    this.scenarioRepository.deleteAll(scenarios);
+  public void deleteScenario(List<Long> scenarioIds) {
+    this.scenarioRepository.deleteAllById(scenarioIds);
   }
 }

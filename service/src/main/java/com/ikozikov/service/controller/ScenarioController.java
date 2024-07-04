@@ -1,5 +1,6 @@
 package com.ikozikov.service.controller;
 
+import com.ikozikov.service.dto.ScenarioDto;
 import com.ikozikov.service.model.Scenario;
 import com.ikozikov.service.service.ScenarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +31,20 @@ public class ScenarioController {
   }
   
   @PostMapping(value = "/scenario")
-  public Scenario createScenario(@RequestBody Scenario newScenario) {
+  public Scenario createScenario(@RequestBody ScenarioDto newScenario) {
+    System.out.print("Start controller");
+    System.out.print(newScenario);
     return this.scenarioService.createScenario(newScenario);
   }
   
   @PatchMapping(value = "/scenario/{id}")
-  public Scenario updateScenario(@PathVariable(value = "id") Long scenarioId, @RequestBody Scenario newScenario) {
-    return this.scenarioService.updateScenario(scenarioId, newScenario);
+  public Scenario updateScenario(@PathVariable(value = "id") Long scenarioId, @RequestBody ScenarioDto scenarioDto) {
+    return this.scenarioService.updateScenario(scenarioId, scenarioDto);
   }
   
   @DeleteMapping(value = "/scenario")
-  public void deleteScenarios(@RequestBody List<Scenario> scenarios) {
-    this.scenarioService.deleteScenario(scenarios);
+  public void deleteScenarios(@RequestBody List<Long> scenariosIds) {
+    this.scenarioService.deleteScenario(scenariosIds);
   }
-  
   
 }
