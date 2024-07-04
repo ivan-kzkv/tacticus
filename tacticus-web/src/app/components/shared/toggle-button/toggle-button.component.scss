@@ -1,4 +1,13 @@
+
 input {
+  --size: 20px;
+  --bgColor: var(--main-color-200);
+  --bgColorChecked: var(--main-color-500);
+  --circleColor: var(--main-color-400);
+  --circleColorChecked: var(--main-color-100);
+
+
+
   height: calc(var(--size) + var(--size) / 5);
   width: auto; /* деяким браузерам це потрібно */
   aspect-ratio: 2.25;
@@ -26,7 +35,7 @@ input:before {
   background:
     radial-gradient(circle closest-side at calc(100% - var(--size) / 2) 50%, var(--circleColor) 96%, #0000) 0 / var(--_p, var(--size)) 100% no-repeat content-box,
     radial-gradient(circle closest-side at calc(100% - var(--size) / 2) 50%, var(--circleColor) 96%, #0000) var(--_p, 0) / var(--size) 100% no-repeat content-box,
-    #fff;
+    #fff0;
   filter: blur(calc(var(--size) / 12)) contrast(11);
   transition: .4s, background-position .4s .1s,
   padding cubic-bezier(0, calc(var(--_i, -1) * 200), 1, calc(var(--_i, -1) * 200)) .25s .1s;

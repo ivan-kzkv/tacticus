@@ -21,11 +21,11 @@ export class ToggleButtonComponent {
 
   getCheckboxStyles() {
       return {
-        '--size': `${this.buttonConfigurations?.size || 20}px`,
-        '--bgColor': this.buttonConfigurations?.bgColor || 'white',
-        '--bgColorChecked': this.buttonConfigurations?.bgColorChecked || 'black',
-        '--circleColor': this.buttonConfigurations?.circleColor || 'black',
-        '--circleColorChecked': this.buttonConfigurations?.circleColorChecked || 'white'
+        '--size': this.buttonConfigurations?.size && `${this.buttonConfigurations?.size}px`,
+        '--bgColor': this.buttonConfigurations?.bgColor,
+        '--bgColorChecked': this.buttonConfigurations?.bgColorChecked,
+        '--circleColor': this.buttonConfigurations?.circleColor,
+        '--circleColorChecked': this.buttonConfigurations?.circleColorChecked
       };
   }
 }
