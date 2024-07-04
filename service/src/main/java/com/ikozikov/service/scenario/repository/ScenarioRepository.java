@@ -1,6 +1,6 @@
-package com.ikozikov.service.repository;
+package com.ikozikov.service.scenario.repository;
 
-import com.ikozikov.service.model.Scenario;
+import com.ikozikov.service.scenario.model.Scenario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

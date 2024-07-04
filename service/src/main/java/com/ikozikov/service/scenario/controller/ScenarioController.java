@@ -1,8 +1,8 @@
-package com.ikozikov.service.controller;
+package com.ikozikov.service.scenario.controller;
 
-import com.ikozikov.service.dto.ScenarioDto;
-import com.ikozikov.service.model.Scenario;
-import com.ikozikov.service.service.ScenarioService;
+import com.ikozikov.service.scenario.dto.ScenarioDto;
+import com.ikozikov.service.scenario.model.Scenario;
+import com.ikozikov.service.scenario.service.ScenarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

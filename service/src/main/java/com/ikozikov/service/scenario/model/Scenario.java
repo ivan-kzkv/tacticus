@@ -1,4 +1,4 @@
-package com.ikozikov.service.model;
+package com.ikozikov.service.scenario.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

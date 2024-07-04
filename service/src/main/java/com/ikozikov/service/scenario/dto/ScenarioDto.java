@@ -1,4 +1,4 @@
-package com.ikozikov.service.dto;
+package com.ikozikov.service.scenario.dto;
 
 import lombok.Data;
 

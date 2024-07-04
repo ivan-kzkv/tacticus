@@ -1,8 +1,8 @@
-package com.ikozikov.service.service;
+package com.ikozikov.service.scenario.service;
 
-import com.ikozikov.service.dto.ScenarioDto;
-import com.ikozikov.service.model.Scenario;
-import com.ikozikov.service.repository.ScenarioRepository;
+import com.ikozikov.service.scenario.dto.ScenarioDto;
+import com.ikozikov.service.scenario.model.Scenario;
+import com.ikozikov.service.scenario.repository.ScenarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
