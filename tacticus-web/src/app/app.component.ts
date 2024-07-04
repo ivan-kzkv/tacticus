@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import {TacticalFieldComponent} from './components/tactical-field/tactical-field.component';
+import {Store} from '@ngrx/store';
+import {selectTheme} from './store/app-state/app-state.selector';
+import {AppStateActions} from './store/app-state/app-state.action';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +12,12 @@ import {TacticalFieldComponent} from './components/tactical-field/tactical-field
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'tacticus-w';
+  constructor(private readonly store: Store) {
+    this.store.select(selectTheme)
+      .subscribe(theme => console.log(theme));
+
+    setTimeout(() => {
+      this.store.dispatch(AppStateActions.setTheme({theme: 'dark'}));
+    },1000)
+  }
 }
