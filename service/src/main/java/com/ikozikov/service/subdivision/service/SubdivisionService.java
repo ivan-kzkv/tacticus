@@ -14,15 +14,15 @@ public class SubdivisionService {
   
   private final SubdivisionRepository subdivisionRepository;
   
-  private List<SubdivisionModel> getAllSubdivisions() {
+  public List<SubdivisionModel> getAllSubdivisions() {
     return this.subdivisionRepository.findAll();
   }
   
-  private SubdivisionModel getSubdivisionById(Long id) {
+  public SubdivisionModel getSubdivisionById(Long id) {
     return this.subdivisionRepository.findById(id).orElseThrow();
   }
 
-  private SubdivisionModel createSubdivision(SubdivisionDto subdivisionDto) {
+  public SubdivisionModel createSubdivision(SubdivisionDto subdivisionDto) {
     return this.subdivisionRepository.save(subdivisionDto.toModel());
   }
   
@@ -31,8 +31,8 @@ public class SubdivisionService {
   }
 
 
-  public SubdivisionModel updateSubdivision(Long scenarioId, SubdivisionDto subdivisionDto) {
-    return this.subdivisionRepository.findById(scenarioId)
+  public SubdivisionModel updateSubdivision(Long subdivionId, SubdivisionDto subdivisionDto) {
+    return this.subdivisionRepository.findById(subdivionId)
         .map(subdivision -> {
           subdivision.setName(subdivisionDto.getName());
           subdivision.setDescription(subdivisionDto.getDescription());
