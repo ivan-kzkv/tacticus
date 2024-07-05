@@ -3,10 +3,14 @@ package com.ikozikov.service.subdivision.model;
 import com.ikozikov.service.shared.utils.TroopsSide;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +20,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class SubdivisionModel {
   
   @Id
@@ -25,7 +31,11 @@ public class SubdivisionModel {
 
   private String name;
   private String description;
+  
+  @Enumerated(EnumType.STRING)
   private SubdivisionLabel label;
+  
+  @Enumerated(EnumType.STRING)
   private TroopsSide type;
   
 }
