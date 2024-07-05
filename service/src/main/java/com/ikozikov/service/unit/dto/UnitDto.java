@@ -4,6 +4,8 @@ import com.ikozikov.service.unit.model.UnitModel;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Optional;
+
 @Data
 @Builder
 public class UnitDto {
@@ -17,15 +19,16 @@ public class UnitDto {
   private Long subdivision;
   
   public static UnitDto toDto(UnitModel unitModel) {
-    return UnitDto.builder()
+    var unit = UnitDto.builder()
         .id(unitModel.getId())
         .unitName(unitModel.getUnitName())
         .description(unitModel.getDescription())
         .unitIcon(unitModel.getUnitIcon())
         .amount(unitModel.getAmount())
-        .unitType(unitModel.getUnitType().getId())
-        .subdivision(unitModel.getSubdivision().getId())
         .build();
+    Optional.ofNullable(unitModel.getSubdivision()).ifPresent(subdivisionModel -> unit.setSubdivision(subdivisionModel.getId()));
+    Optional.ofNullable(unitModel.getUnitType()).ifPresent(unitTypeModel -> unit.setSubdivision(unitTypeModel.getId()));
+    return unit;
   }
 
   public static UnitModel toModel(UnitDto unitDto) {
