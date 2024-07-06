@@ -21,22 +21,22 @@ public class ScenarioController {
   private ScenarioService scenarioService;
   
   @GetMapping(value = "/scenario")
-  public List<Scenario> getAllScenarios() {
+  public List<ScenarioDto> getAllScenarios() {
     return this.scenarioService.listAllScenarios();
   }
   
   @GetMapping(value = "/scenario/{id}")
-  public Scenario getScenarioById(@PathVariable(value = "id") Long scenarioId) {
+  public ScenarioDto getScenarioById(@PathVariable(value = "id") Long scenarioId) {
     return this.scenarioService.getOneScenario(scenarioId);
   }
   
   @PostMapping(value = "/scenario")
-  public Scenario createScenario(@RequestBody ScenarioDto scenarioDto) {
+  public ScenarioDto createScenario(@RequestBody ScenarioDto scenarioDto) {
     return this.scenarioService.createScenario(scenarioDto);
   }
   
   @PatchMapping(value = "/scenario/{id}")
-  public Scenario updateScenario(@PathVariable(value = "id") Long scenarioId, @RequestBody ScenarioDto scenarioDto) {
+  public ScenarioDto updateScenario(@PathVariable(value = "id") Long scenarioId, @RequestBody ScenarioDto scenarioDto) {
     return this.scenarioService.updateScenario(scenarioId, scenarioDto);
   }
   

@@ -15,8 +15,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -39,18 +41,21 @@ public class ScenarioTest {
 
   @BeforeEach
   public void setUp() {
-    
     scenarioRepository.deleteAll();
 
     Scenario scenario1 = new Scenario();
     scenario1.setId(1L);
     scenario1.setName("Scenario 1");
     scenario1.setDescription("Description for Scenario 1");
+    scenario1.setDate_created(new Date());
+    scenario1.setDate_modified(new Date());
 
     Scenario scenario2 = new Scenario();
     scenario2.setId(2L);
     scenario2.setName("Scenario 2");
     scenario2.setDescription("Description for Scenario 2");
+    scenario2.setDate_created(new Date());
+    scenario2.setDate_modified(new Date());
 
     scenarioRepository.saveAll(Arrays.asList(scenario1, scenario2));
   }
@@ -72,6 +77,7 @@ public class ScenarioTest {
     
     this.mockMvc.perform(get("/scenario/" + scenario.getId()))
         .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id", is(scenario.getId().intValue())))
         .andExpect(jsonPath("$.name", is(scenario.getName())))
         .andExpect(jsonPath("$.description", is(scenario.getDescription())))
         .andReturn();
@@ -87,7 +93,6 @@ public class ScenarioTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(scenarioDto)))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id", is(3)))
         .andExpect(jsonPath("$.name", is("Post scenario")))
         .andExpect(jsonPath("$.description", is("Post Description")));
     
@@ -96,5 +101,29 @@ public class ScenarioTest {
     var postedScenario = scenarios.get(2);
     Assertions.assertEquals(postedScenario.getName(), "Post scenario");
     Assertions.assertEquals(postedScenario.getDescription(), "Post Description");
+  }
+
+  @Test
+  public void testPatchScenario() throws Exception {
+    var scenario = scenarioRepository.findAll().get(0);
+
+    var scenarioDto = ScenarioDto.builder()
+        .name(scenario.getName())
+        .description("Updated Description")
+        .build();
+    Thread.sleep(1000);
+    this.mockMvc.perform(patch("/scenario/" + scenario.getId())
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(scenarioDto)))
+        .andExpect(jsonPath("$.id", is(scenario.getId().intValue())))
+        .andExpect(jsonPath("$.name", is(scenario.getName())))
+        .andExpect(jsonPath("$.description", is("Updated Description")));
+
+
+    var scenarioUpdated = scenarioRepository.findById(scenario.getId()).get();
+    
+    Assertions.assertEquals(scenario.getDate_created().getTime(), scenarioUpdated.getDate_created().getTime());
+    Assertions.assertTrue(scenario.getDate_modified().getTime() < scenarioUpdated.getDate_modified().getTime());
+    
   }
 }

@@ -1,10 +1,13 @@
 package com.ikozikov.service.scenario.model;
 
+import com.ikozikov.service.scenario.dto.ScenarioDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +18,8 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Scenario {
   
   @Id
@@ -29,4 +34,14 @@ public class Scenario {
   
   private Date date_modified;
 
+  
+  public static Scenario toModel(ScenarioDto scenarioDto) {
+    return Scenario.builder()
+        .id(scenarioDto.getId())
+        .name(scenarioDto.getName())
+        .description(scenarioDto.getDescription())
+        .date_created(scenarioDto.getDate_created())
+        .date_modified(scenarioDto.getDate_modified())
+        .build();
+  }
 }

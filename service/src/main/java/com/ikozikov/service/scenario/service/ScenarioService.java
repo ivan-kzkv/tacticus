@@ -14,35 +14,43 @@ public class ScenarioService {
   @Autowired
   private ScenarioRepository scenarioRepository;
   
-  public List<Scenario> listAllScenarios() {
-    return this.scenarioRepository.findAll();
+  public List<ScenarioDto> listAllScenarios() {
+    return this.scenarioRepository.findAll().stream()
+        .map(ScenarioDto::toDto)
+        .toList();
   }
   
-  public Scenario getOneScenario(Long scenarioId) {
-    return this.scenarioRepository.findById(scenarioId).orElseThrow();
+  public ScenarioDto getOneScenario(Long scenarioId) {
+    return this.scenarioRepository.findById(scenarioId)
+        .map(ScenarioDto::toDto)
+        .orElseThrow();
   }
   
-  public Scenario createScenario(ScenarioDto scenarioDto) {
+  public ScenarioDto createScenario(ScenarioDto scenarioDto) {
     var scenario = new Scenario();
     scenario.setDate_created(new Date());
     scenario.setDate_modified(new Date());
     scenario.setName(scenarioDto.getName());
     scenario.setDescription(scenarioDto.getDescription());
-    return this.scenarioRepository.save(scenario);
+    return ScenarioDto.toDto(this.scenarioRepository.save(scenario));
   }
   
-  public List<Scenario> createScenarioFromList(List<Scenario> scenarios) {
-    return this.scenarioRepository.saveAll(scenarios);
+  public List<ScenarioDto> createScenarioFromList(List<ScenarioDto> scenarios) {
+    return this.scenarioRepository.saveAll(scenarios.stream().map(Scenario::toModel).toList())
+        .stream()
+        .map(ScenarioDto::toDto)
+        .toList();
   }
   
-  public Scenario updateScenario(Long scenarioId, ScenarioDto scenarioDto) {
+  public ScenarioDto updateScenario(Long scenarioId, ScenarioDto scenarioDto) {
     return this.scenarioRepository.findById(scenarioId)
         .map(scenario -> {
           scenario.setName(scenarioDto.getName());
           scenario.setDate_modified(new Date());
           scenario.setDescription(scenarioDto.getDescription());
           return this.scenarioRepository.save(scenario);
-        }).orElseThrow();
+        }).map(ScenarioDto::toDto)
+        .orElseThrow();
   }
   
   public void deleteScenario(List<Long> scenarioIds) {
