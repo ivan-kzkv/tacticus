@@ -31,10 +31,8 @@ public class ScenarioController {
   }
   
   @PostMapping(value = "/scenario")
-  public Scenario createScenario(@RequestBody ScenarioDto newScenario) {
-    System.out.print("Start controller");
-    System.out.print(newScenario);
-    return this.scenarioService.createScenario(newScenario);
+  public Scenario createScenario(@RequestBody ScenarioDto scenarioDto) {
+    return this.scenarioService.createScenario(scenarioDto);
   }
   
   @PatchMapping(value = "/scenario/{id}")
