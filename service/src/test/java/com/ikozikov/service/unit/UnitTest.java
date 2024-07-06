@@ -1,5 +1,6 @@
 package com.ikozikov.service.unit;
 
+import com.ikozikov.service.shared.utils.TroopsSide;
 import com.ikozikov.service.subdivision.model.SubdivisionLabel;
 import com.ikozikov.service.subdivision.model.SubdivisionModel;
 import com.ikozikov.service.subdivision.repository.SubdivisionRepository;
@@ -60,8 +61,8 @@ public class UnitTest {
     var subdivision = SubdivisionModel.builder()
         .name("subdivision 1")
         .description("Subdivision 1 for test")
-//        .label(SubdivisionLabel.WHITE)
-        .type(SubdivisionLabel.WHITE)
+        .label(SubdivisionLabel.WHITE)
+        .type(TroopsSide.FRIENDLY)
         .build();
     
     subdivisionRepository.save(subdivision);

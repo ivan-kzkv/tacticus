@@ -36,6 +36,7 @@ public class SubdivisionModel {
   private SubdivisionLabel label;
   
   @Enumerated(EnumType.STRING)
+  @Column(name = "troops_type")
   private TroopsSide type;
   
 }
