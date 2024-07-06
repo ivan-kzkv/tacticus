@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.Date;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -92,7 +93,7 @@ public class ScenarioTest {
     this.mockMvc.perform(post("/scenario")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(scenarioDto)))
-        .andExpect(status().isOk())
+        .andExpect(status().isCreated())
         .andExpect(jsonPath("$.name", is("Post scenario")))
         .andExpect(jsonPath("$.description", is("Post Description")));
     
@@ -115,6 +116,7 @@ public class ScenarioTest {
     this.mockMvc.perform(patch("/scenario/" + scenario.getId())
         .contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(scenarioDto)))
+        .andExpect(status().isOk())
         .andExpect(jsonPath("$.id", is(scenario.getId().intValue())))
         .andExpect(jsonPath("$.name", is(scenario.getName())))
         .andExpect(jsonPath("$.description", is("Updated Description")));
@@ -125,5 +127,15 @@ public class ScenarioTest {
     Assertions.assertEquals(scenario.getDate_created().getTime(), scenarioUpdated.getDate_created().getTime());
     Assertions.assertTrue(scenario.getDate_modified().getTime() < scenarioUpdated.getDate_modified().getTime());
     
+  }
+
+  @Test
+  public void testDeleteScenario() throws Exception {
+    this.mockMvc.perform(delete("/scenario")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(scenarioRepository.findAll().stream().map(Scenario::getId).toList())))
+        .andExpect(status().isOk());
+
+    Assertions.assertEquals(scenarioRepository.findAll().size(), 0);
   }
 }
