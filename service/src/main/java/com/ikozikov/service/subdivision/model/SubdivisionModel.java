@@ -1,6 +1,7 @@
 package com.ikozikov.service.subdivision.model;
 
 import com.ikozikov.service.shared.utils.TroopsSide;
+import com.ikozikov.service.subdivision.dto.SubdivisionDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -39,4 +40,14 @@ public class SubdivisionModel {
   @Column(name = "troops_type")
   private TroopsSide type;
   
+  
+  public static SubdivisionModel toModel(SubdivisionDto subdivisionDto) {
+    return SubdivisionModel.builder()
+        .id(subdivisionDto.getId())
+        .name(subdivisionDto.getName())
+        .description(subdivisionDto.getDescription())
+        .label(subdivisionDto.getLabel())
+        .type(subdivisionDto.getType())
+        .build();
+  }
 }

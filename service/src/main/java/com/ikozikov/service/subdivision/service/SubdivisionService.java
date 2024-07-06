@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,24 +15,30 @@ public class SubdivisionService {
   
   private final SubdivisionRepository subdivisionRepository;
   
-  public List<SubdivisionModel> getAllSubdivisions() {
-    return this.subdivisionRepository.findAll();
+  public List<SubdivisionDto> getAllSubdivisions() {
+    return subdivisionRepository.findAll().stream().map(SubdivisionDto::toDto).toList();
   }
   
-  public SubdivisionModel getSubdivisionById(Long id) {
-    return this.subdivisionRepository.findById(id).orElseThrow();
+  public SubdivisionDto getSubdivisionById(Long id) {
+    return subdivisionRepository.findById(id).map(SubdivisionDto::toDto).orElseThrow();
   }
 
-  public SubdivisionModel createSubdivision(SubdivisionDto subdivisionDto) {
-    return this.subdivisionRepository.save(subdivisionDto.toModel());
+  public SubdivisionDto createSubdivision(SubdivisionDto subdivisionDto) {
+    return Optional.of(subdivisionDto)
+        .map(SubdivisionModel::toModel)
+        .map(subdivisionRepository::save)
+        .map(SubdivisionDto::toDto)
+        .orElseThrow();
   }
   
-  public List<SubdivisionModel> createSubdivisionFromList(List<SubdivisionDto> subdivisionDtos) {
-    return this.subdivisionRepository.saveAll(subdivisionDtos.stream().map(SubdivisionDto::toModel).toList());
+  public List<SubdivisionDto> createSubdivisionFromList(List<SubdivisionDto> subdivisionDtos) {
+    return subdivisionRepository.saveAll(subdivisionDtos.stream().map(SubdivisionModel::toModel).toList())
+        .stream().map(SubdivisionDto::toDto)
+        .toList();
   }
 
 
-  public SubdivisionModel updateSubdivision(Long subdivionId, SubdivisionDto subdivisionDto) {
+  public SubdivisionDto updateSubdivision(Long subdivionId, SubdivisionDto subdivisionDto) {
     return this.subdivisionRepository.findById(subdivionId)
         .map(subdivision -> {
           subdivision.setName(subdivisionDto.getName());
@@ -39,7 +46,8 @@ public class SubdivisionService {
           subdivision.setLabel(subdivisionDto.getLabel());
           subdivision.setType(subdivisionDto.getType());
           return this.subdivisionRepository.save(subdivision);
-        }).orElseThrow();
+        })
+        .map(SubdivisionDto::toDto).orElseThrow();
   }
 
   public void deleteSubdivisions(List<Long> scenarioIds) {
