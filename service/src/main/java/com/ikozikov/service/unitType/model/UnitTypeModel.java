@@ -1,5 +1,6 @@
 package com.ikozikov.service.unitType.model;
 
+import com.ikozikov.service.unitType.dto.UnitTypeDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,4 +31,13 @@ public class UnitTypeModel {
   private String description;
   
   private String icon_name;
+  
+  public static UnitTypeModel dtoToModel(UnitTypeDto unitTypeDto) {
+    return UnitTypeModel.builder()
+        .id(unitTypeDto.getId())
+        .type_name(unitTypeDto.getTypeName())
+        .description(unitTypeDto.getDescription())
+        .icon_name(unitTypeDto.getIconName())
+        .build();
+  }
 }

@@ -1,5 +1,6 @@
 package com.ikozikov.service.unitType.service;
 
+import com.ikozikov.service.unitType.dto.UnitTypeDto;
 import com.ikozikov.service.unitType.model.UnitTypeModel;
 import com.ikozikov.service.unitType.repository.UnitTypeRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +13,11 @@ import java.util.List;
 public class UnitTypeService {
   private final UnitTypeRepository unitTypeRepository;
   
-  public List<UnitTypeModel> getUnitTypes() {
-    return this.unitTypeRepository.findAll();
+  public List<UnitTypeDto> getUnitTypes() {
+    return this.unitTypeRepository.findAll().stream().map(UnitTypeDto::modelToDto).toList();
   }
   
-  public UnitTypeModel getUnitTypeById(Long unitTypeId) {
-    return this.unitTypeRepository.findById(unitTypeId).orElseThrow();
+  public UnitTypeDto getUnitTypeById(Long unitTypeId) {
+    return this.unitTypeRepository.findById(unitTypeId).map(UnitTypeDto::modelToDto).orElseThrow();
   }
 }

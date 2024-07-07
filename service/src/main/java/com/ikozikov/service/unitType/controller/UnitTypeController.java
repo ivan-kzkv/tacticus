@@ -1,6 +1,6 @@
 package com.ikozikov.service.unitType.controller;
 
-import com.ikozikov.service.unitType.model.UnitTypeModel;
+import com.ikozikov.service.unitType.dto.UnitTypeDto;
 import com.ikozikov.service.unitType.service.UnitTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +15,13 @@ public class UnitTypeController {
   
   private final UnitTypeService unitTypeService;
   
-  @GetMapping
-  public List<UnitTypeModel> getAllUnitTypes() {
+  @GetMapping("/unit-type")
+  public List<UnitTypeDto> getAllUnitTypes() {
     return unitTypeService.getUnitTypes();
   }
 
-  @GetMapping("/{id}")
-  public UnitTypeModel getUnitTypeById(@PathVariable("id") Long unitTypeId) {
+  @GetMapping("/unit-type/{id}")
+  public UnitTypeDto getUnitTypeById(@PathVariable("id") Long unitTypeId) {
     return unitTypeService.getUnitTypeById(unitTypeId);
   }
 }
