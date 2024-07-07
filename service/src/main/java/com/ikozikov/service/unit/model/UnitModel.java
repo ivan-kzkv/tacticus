@@ -1,6 +1,5 @@
 package com.ikozikov.service.unit.model;
 
-import com.ikozikov.service.subdivision.model.SubdivisionModel;
 import com.ikozikov.service.unitType.model.UnitTypeModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,8 +37,4 @@ public class UnitModel {
   @ManyToOne
   @JoinColumn(name = "unit_type_id", nullable = false)
   private UnitTypeModel unitType;
-  
-  @ManyToOne
-  @JoinColumn(name = "subdivision")
-  private SubdivisionModel subdivision;
 }

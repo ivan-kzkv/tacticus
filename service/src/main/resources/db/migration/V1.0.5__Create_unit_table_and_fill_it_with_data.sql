@@ -5,8 +5,6 @@ CREATE TABLE unit (
                       unit_icon VARCHAR(50) NOT NULL,
                       unit_type_id INT NOT NULL,
                       amount INT NOT NULL,
-                      subdivision INT ,
-                      FOREIGN KEY (subdivision) REFERENCES subdivision(subdivision_id),
                       FOREIGN KEY (unit_type_id) REFERENCES unit_type(unit_type_id)
 );
 
