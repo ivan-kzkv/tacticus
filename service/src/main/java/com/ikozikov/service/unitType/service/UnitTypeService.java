@@ -1,7 +1,6 @@
 package com.ikozikov.service.unitType.service;
 
 import com.ikozikov.service.unitType.dto.UnitTypeDto;
-import com.ikozikov.service.unitType.model.UnitTypeModel;
 import com.ikozikov.service.unitType.repository.UnitTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
