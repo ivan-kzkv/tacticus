@@ -6,7 +6,7 @@ import com.ikozikov.service.unit.model.UnitModel;
 public class UnitUtilsMapper {
   
   public static UnitDto modelToDto(UnitModel unitModel) {
-    var unit = UnitDto.builder()
+    return UnitDto.builder()
         .id(unitModel.getId())
         .unitName(unitModel.getUnitName())
         .description(unitModel.getDescription())
@@ -14,7 +14,6 @@ public class UnitUtilsMapper {
         .amount(unitModel.getAmount())
         .unitType(unitModel.getUnitType().getId())
         .build();
-    return unit;
   }
 
 
