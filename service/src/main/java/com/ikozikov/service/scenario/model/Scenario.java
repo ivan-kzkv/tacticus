@@ -1,11 +1,15 @@
 package com.ikozikov.service.scenario.model;
 
+import com.ikozikov.service.commit.model.CommitModel;
 import com.ikozikov.service.scenario.dto.ScenarioDto;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,6 +38,9 @@ public class Scenario {
   private Date date_created;
   
   private Date date_modified;
+
+  @OneToMany(mappedBy = "scenario", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<CommitModel> commits;
 
   
   public static Scenario toModel(ScenarioDto scenarioDto) {

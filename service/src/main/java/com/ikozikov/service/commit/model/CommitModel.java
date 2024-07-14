@@ -2,6 +2,7 @@ package com.ikozikov.service.commit.model;
 
 import com.ikozikov.service.scenario.model.Scenario;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,13 +39,13 @@ public class CommitModel {
   @Column(name = "stage", nullable = false)
   private int stage;
 
-  @ManyToOne
-  @JoinColumn(name = "previous_commit_id")
-  private CommitModel previousCommit;
-
-  @ManyToOne
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "next_commit_id")
   private CommitModel nextCommit;
+
+  @OneToOne(mappedBy = "nextCommit")
+  @JoinColumn(name = "previous_commit_id")
+  private CommitModel previousCommit;
 
   @ManyToOne
   @JoinColumn(name = "scenario_id", nullable = false)
